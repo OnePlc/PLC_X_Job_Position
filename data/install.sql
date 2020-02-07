@@ -33,25 +33,24 @@ ALTER TABLE `job_position`
 -- Permissions
 --
 INSERT INTO `permission` (`permission_key`, `module`, `label`, `nav_label`, `nav_href`, `show_in_menu`) VALUES
-('add', 'OnePlace\\Job\\Controller\\JobPositionController', 'Add', '', '', 0),
-('edit', 'OnePlace\\Job\\Controller\\JobPositionController', 'Edit', '', '', 0),
-('index', 'OnePlace\\Job\\Controller\\JobPositionController', 'Index', 'Jobs', '/job', 1),
-('list', 'OnePlace\\Job\\Controller\\ApiController', 'List', '', '', 0),
-('view', 'OnePlace\\Job\\Controller\\JobPositionController', 'View', '', '', 0);
+('add', 'OnePlace\\Job\\Position\\Controller\\PositionController', 'Add', '', '', 0),
+('edit', 'OnePlace\\Job\\Position\\Controller\\PositionController', 'Edit', '', '', 0),
+('index', 'OnePlace\\Job\\Position\\Controller\\PositionController', 'Index', 'Jobs', '/job', 1),
+('list', 'OnePlace\\Job\\Position\\Controller\\ApiController', 'List', '', '', 0),
+('view', 'OnePlace\\Job\\Position\\Controller\\PositionController', 'View', '', '', 0);
 
 --
 -- Form
 --
 INSERT INTO `core_form` (`form_key`, `label`, `entity_class`, `entity_tbl_class`) VALUES
-('jobposition-single', 'Position', 'OnePlace\\Job\\Model\\Position', 'OnePlace\\Job\\Model\\PositionTable');
+('jobposition-single', 'Position', 'OnePlace\\Job\\Position\\Model\\Position', 'OnePlace\\Job\\Position\\Model\\PositionTable');
 
 
 --
 -- Tabs
 --
 INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `counter`, `sort_id`, `filter_check`, `filter_value`) VALUES
-('job-position', 'job-position', 'Position', 'all positions', 'fas fa-cogs', '', '0', '', '');
-
+('job-position', 'job-single', 'Position', 'all positions', 'fas fa-cogs', '', '0', '', '');
 
 
 
@@ -59,11 +58,11 @@ INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `cou
 -- Core Form - Job  Position Base Fields
 --
 INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_list`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES
-(NULL, 'text', 'Name', 'label', 'job-base', 'job-single', 'col-md-3', '/job/view/##ID##', '', 0, 1, 0, '', '', '');
+(NULL, 'text', 'Name', 'label', 'jobposition-base', 'job-single', 'col-md-3', '/job/view/##ID##', '', 0, 1, 0, '', '', ''),
 (NULL, 'select', 'Job', 'job_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '/user/view/##ID##', '/job/api/list/0', 0, 1, 0, 'entitytag-single', 'OnePlace\\Job\\Model\\JobTable','add-OnePlace\\Job\\Controller\\JobController'),
 (NULL, 'select', 'Article', 'article_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '/article/view/##ID##', '/article/api/list/0', 0, 1, 0, 'entitytag-single', 'OnePlace\\Article\\Model\\ArticleTable','add-OnePlace\\Article\\Controller\\ArticleController'),
-(NULL, 'select', 'Variant', 'variant_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '/tag/api/list/jobposition-single/type', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Job\\Controller\\VariantController'),
-(NULL, 'select', 'Ref', 'ref_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '/tag/api/list/jobposition-single/type', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Job\\Controller\\RefController'),
+(NULL, 'select', 'Variant', 'variant_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '/tag/api/list/jobposition-single/type', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Job\\Position\\Controller\\VariantController'),
+(NULL, 'select', 'Ref', 'ref_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '/tag/api/list/jobposition-single/type', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Job\\Position\\Controller\\RefController'),
 (NULL, 'text', 'Type', 'type', 'jobposition-base', 'jobposition-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
 (NULL, 'currency', 'Amount', 'amount', 'jobposition-base', 'jobposition-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
 (NULL, 'currency', 'Price', 'price', 'jobposition-base', 'jobposition-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
@@ -75,7 +74,15 @@ INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `
 -- Core Form - extend Job Base Fields
 --
 INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_list`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES
-(NULL, 'partial', 'Position', 'job_position', 'job-position', 'job-single', 'col-md-12', '', '', 0, 1, 0, '', '', '');
+(NULL, 'partial', 'Position', 'job-position', 'job-position', 'job-single', 'col-md-12', '', '', 0, 1, 0, '', '', '');
+
+
+--
+-- permissions
+--
+INSERT INTO `permission` (`permission_key`, `module`, `label`, `nav_label`, `nav_href`, `show_in_menu`) VALUES
+('add', 'add-OnePlace\\Job\\Position\\Controller\\VariantController', 'Add Variant', '', '', 0),
+('add', 'add-OnePlace\\Job\\Position\\Controller\\RefController', 'Add Ref', '', '', 0);
 
 
 --

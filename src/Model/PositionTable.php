@@ -13,7 +13,7 @@
  * @since 1.0.0
  */
 
-namespace OnePlace\Job\Model;
+namespace OnePlace\Job\Position\Model;
 
 use Application\Controller\CoreController;
 use Application\Model\CoreEntityTable;

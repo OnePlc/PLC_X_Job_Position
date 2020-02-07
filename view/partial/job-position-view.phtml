@@ -1,0 +1,19 @@
+<?php
+use Application\Controller\CoreController;
+
+$oTable = CoreController::$oServiceManager->get(\OnePlace\Job\Position\Model\PositionTable::class);
+$Positions = $oTable->fetchAll(false); //['job_idfs'=>$oTable]
+?>
+<ul class=list-group>
+<?php
+    foreach($Positions as $oRow) {
+        //var_dump($oRow);
+
+?>
+        <li class="list-group-item">
+            <?=$oRow->description?>
+        </li/>
+        <?php
+    }
+?>
+</ul>

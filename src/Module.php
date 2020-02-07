@@ -20,7 +20,9 @@ use Laminas\Mvc\MvcEvent;
 use Laminas\EventManager\EventInterface as Event;
 use Laminas\ModuleManager\ModuleManager;
 use Laminas\Db\Adapter\AdapterInterface;
-use OnePlace\Job\Position\Controller\PositionController;
+use Laminas\Db\ResultSet\ResultSet;
+use Laminas\Db\TableGateway\TableGateway;
+
 
 class Module {
     /**
@@ -28,7 +30,7 @@ class Module {
      *
      * @since 1.0.0
      */
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     /**
      * Load module config file
@@ -68,7 +70,7 @@ class Module {
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Position($dbAdapter));
-                    return new TableGateway('job-position', $dbAdapter, null, $resultSetPrototype);
+                    return new TableGateway('job_position', $dbAdapter, null, $resultSetPrototype);
                 },
             ],
         ];
