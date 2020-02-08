@@ -1,0 +1,33 @@
+<?php
+# Only show partial if data is set
+if(array_key_exists('job-position',$this->aPartialData)) {
+    ?>
+    <div class="row">
+        <ul class="list-group">
+        <?php
+        # Get positions for this job from our controller
+        $aPositions = $this->aPartialData['job-position']['oPositionsDB'];
+        if (count($aPositions) > 0) {
+            $bPrint = true;
+            foreach($aPositions as $oPos) {
+                $aPartialData = ['sFormName' => 'jobposition-single', 'sTab' => 'position-base', 'oItem'=>$oPos, 'aFieldsByTab' => $this->aPartialData['job-position']['aFormFields']];
+                ?>
+                <li class="list-group-item">
+                    <div class="row">
+                        <?= $this->partial('partial/basicformfields', $aPartialData); ?>
+                    </div>
+                </li>
+                <?php
+            }
+        } else { ?>
+            <div class="alert alert-info px-2 py-2">
+                <?=$this->translate('No positions yet')?>
+            </div>
+        <?php
+        }
+        ?>
+        </ul>
+    </div>
+<?php
+}
+?>

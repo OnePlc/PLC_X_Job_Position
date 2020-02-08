@@ -22,6 +22,8 @@ use Laminas\ModuleManager\ModuleManager;
 use Laminas\Db\Adapter\AdapterInterface;
 use Laminas\Db\ResultSet\ResultSet;
 use Laminas\Db\TableGateway\TableGateway;
+use OnePlace\Job\Position\Controller\PositionController;
+use OnePlace\Job\Position\Model\PositionTable;
 
 
 class Module {
@@ -45,13 +47,15 @@ class Module {
     public function onBootstrap(Event $e)
     {
         // This method is called once the MVC bootstrapping is complete
-//        $application = $e->getApplication();
-//        $container    = $application->getServiceManager();
-//        $oDbAdapter = $container->get(AdapterInterface::class);
-//        $tableGateway = $container->get(\OnePlace\Job\Model\JobTable::class);
-//
-//        # Register Position Plugin Hook
-//        CoreEntityController::addHook('article-index-before-paginator',(object)['sFunction'=>'filterIndexByState','oItem'=>new PositionController($oDbAdapter,$tableGateway,$container)]);
+        $application = $e->getApplication();
+        $container    = $application->getServiceManager();
+        $oDbAdapter = $container->get(AdapterInterface::class);
+        $tableGateway = $container->get(PositionTable::class);
+
+        # Register Filter Plugin Hook
+        CoreEntityController::addHook('job-edit-before',(object)['sFunction'=>'attachPositionForm','oItem'=>new PositionController($oDbAdapter,$tableGateway,$container)]);
+        //CoreEntityController::addHook('job-add-after-save',(object)['sFunction'=>'attachPositionToJob','oItem'=>new PositionController($oDbAdapter,$tableGateway,$container)]);
+        //CoreEntityController::addHook('job-edit-after-save',(object)['sFunction'=>'attachPositionToJob','oItem'=>new PositionController($oDbAdapter,$tableGateway,$container)]);
     }
 
 
@@ -71,6 +75,26 @@ class Module {
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Position($dbAdapter));
                     return new TableGateway('job_position', $dbAdapter, null, $resultSetPrototype);
+                },
+            ],
+        ];
+    }
+    /**
+     * Load Controllers
+     */
+    public function getControllerConfig() : array {
+        return [
+            'factories' => [
+                # Plugin Example Controller
+                Controller\PositionController::class => function($container) {
+                    $oDbAdapter = $container->get(AdapterInterface::class);
+                    $tableGateway = $container->get(PositionTable::class);
+
+                    return new Controller\PositionController(
+                        $oDbAdapter,
+                        $tableGateway,
+                        $container
+                    );
                 },
             ],
         ];

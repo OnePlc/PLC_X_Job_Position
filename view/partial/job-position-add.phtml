@@ -1,0 +1,20 @@
+<?php
+use Application\Controller\CoreController;
+
+$oForm = CoreController::$aCoreTables['core-form']->select(['form_key'=>'jobposition-single']);
+if(count($oForm) > 0) {
+    $aFields = [
+        'position-base' => CoreController::$aCoreTables['core-form-field']->select(['form'=>'jobposition-single']),
+    ];
+    ?>
+    <?= $this->partial('partial/basicformfields', ['sFormName'=>'jobposition-single','sTab'=>'position-base','aFieldsByTab'=>$aFields]); ?>
+    <?php
+    foreach ( $aFields as $field){
+        var_dump($field);
+        echo "\n";
+    }
+} else {
+    echo 'Could not load address form';
+}
+?>
+

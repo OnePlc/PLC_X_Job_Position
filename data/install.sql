@@ -35,8 +35,6 @@ ALTER TABLE `job_position`
 INSERT INTO `permission` (`permission_key`, `module`, `label`, `nav_label`, `nav_href`, `show_in_menu`) VALUES
 ('add', 'OnePlace\\Job\\Position\\Controller\\PositionController', 'Add', '', '', 0),
 ('edit', 'OnePlace\\Job\\Position\\Controller\\PositionController', 'Edit', '', '', 0),
-('index', 'OnePlace\\Job\\Position\\Controller\\PositionController', 'Index', 'Jobs', '/job', 1),
-('list', 'OnePlace\\Job\\Position\\Controller\\ApiController', 'List', '', '', 0),
 ('view', 'OnePlace\\Job\\Position\\Controller\\PositionController', 'View', '', '', 0);
 
 --
@@ -59,7 +57,7 @@ INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `cou
 --
 INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_list`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES
 (NULL, 'text', 'Name', 'label', 'jobposition-base', 'job-single', 'col-md-3', '/job/view/##ID##', '', 0, 1, 0, '', '', ''),
-(NULL, 'select', 'Job', 'job_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '/user/view/##ID##', '/job/api/list/0', 0, 1, 0, 'entitytag-single', 'OnePlace\\Job\\Model\\JobTable','add-OnePlace\\Job\\Controller\\JobController'),
+(NULL, 'hidden', 'Job', 'job_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '', 0, 1, 0, '', '',''),
 (NULL, 'select', 'Article', 'article_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '/article/view/##ID##', '/article/api/list/0', 0, 1, 0, 'entitytag-single', 'OnePlace\\Article\\Model\\ArticleTable','add-OnePlace\\Article\\Controller\\ArticleController'),
 (NULL, 'select', 'Variant', 'variant_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '/tag/api/list/jobposition-single/type', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Job\\Position\\Controller\\VariantController'),
 (NULL, 'select', 'Ref', 'ref_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '/tag/api/list/jobposition-single/type', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Job\\Position\\Controller\\RefController'),
@@ -94,5 +92,6 @@ INSERT INTO `permission` (`permission_key`, `module`, `label`, `nav_label`, `nav
 INSERT INTO `core_tag` (`Tag_ID`, `tag_key`, `tag_label`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
 (NULL, 'variant', 'Variant', '1', '0000-00-00 00:00:00', '1', '0000-00-00 00:00:00'),
 (NULL, 'ref', 'Ref', '1', '0000-00-00 00:00:00', '1', '0000-00-00 00:00:00');
+
 
 COMMIT;
