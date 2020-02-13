@@ -46,8 +46,4 @@ class Position extends CoreEntityModel {
 
         $this->updateDynamicFields($aData);
     }
-
-    public function getLabel() {
-        return $this->street;
-    }
 }

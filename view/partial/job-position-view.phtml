@@ -1,23 +1,27 @@
 <?php
+# Only show partial if data is set
+if(array_key_exists('job_position',$this->aPartialData)) {
+    # add address form fields
+    $aPositions = $this->aPartialData['job_position']['oPositionsDB'];
+    $aFields = $this->aPartialData['job_position']['aFormFields'];
 
-?>
-<ul class=list-group>
-    <?php
-    if(count($Positions)) {
-        foreach($Positions as $oRow) {?>
-            <li class="list-group-item">
-                <div class="row">
-                <!-- basicviewfields partial -->
-                </div>
-                Position<?=$oRow->getID()?> - <?=$oRow->description?>
-            </li/>
+    if(count($aPositions) == 0) { ?>
+        <div class="alert alert-info px-2 py-2">
+            <?=$this->translate('No Positions yet')?>
+        </div>
+    <?php } else { ?>
+        <ul class="list-group">
             <?php
-        }
-    } else { ?>
-            <div class="alert alert-info">No Position</div>
-
-    <?php
+            foreach($aPositions as $oPos) { ?>
+                <li class="list-group-item">
+                    <div class="row">
+                        <?= $this->partial('partial/viewformfields', ['sFormName' => 'jobposition-single', 'sTab' => 'position-base', 'oItem' => $oPos, 'aFormFieldsByTab' => $aFields]); ?>
+                    </div>
+                </li>
+                <?php
+            }
+            ?>
+        </ul>
+        <?php
     }
-
-?>
-</ul>
+}
