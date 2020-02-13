@@ -2,10 +2,10 @@
 /**
  * Position.php - Position Entity
  *
- * Entity Model for Position
+ * Entity Model for Position Position
  *
  * @category Model
- * @package Position
+ * @package Job\Position
  * @author Verein onePlace
  * @copyright (C) 2020 Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -18,8 +18,6 @@ namespace OnePlace\Job\Position\Model;
 use Application\Model\CoreEntityModel;
 
 class Position extends CoreEntityModel {
-    public $label;
-
     /**
      * Position constructor.
      *
@@ -47,5 +45,9 @@ class Position extends CoreEntityModel {
         $this->label = !empty($aData['label']) ? $aData['label'] : '';
 
         $this->updateDynamicFields($aData);
+    }
+
+    public function getLabel() {
+        return $this->street;
     }
 }

@@ -1,11 +1,11 @@
 <?php
 /**
- * JobTable.php - Job Table
+ * PositionTable.php - Position Table
  *
- * Table Model for Job
+ * Table Model for Position Position
  *
  * @category Model
- * @package jobposition
+ * @package Job\Position
  * @author Verein onePlace
  * @copyright (C) 2020 Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -43,12 +43,13 @@ class PositionTable extends CoreEntityTable {
      * Get Position Entity
      *
      * @param int $id
+     * @param string $sKey
      * @return mixed
      * @since 1.0.0
      */
-    public function getSingle($id) {
+    public function getSingle($id,$sKey = 'Position_ID') {
         # Use core function
-        return $this->getSingleEntity($id,'Position_ID');
+        return $this->getSingleEntity($id,$sKey);
     }
 
     /**
@@ -59,46 +60,11 @@ class PositionTable extends CoreEntityTable {
      * @since 1.0.0
      */
     public function saveSingle(Position $oPosition) {
-        $aData = [
+        $aDefaultData = [
             'label' => $oPosition->label,
         ];
 
-        $aData = $this->attachDynamicFields($aData,$oPosition);
-
-        $id = (int) $oPosition->id;
-
-        if ($id === 0) {
-            # Add Metadata
-            $aData['created_by'] = CoreController::$oSession->oUser->getID();
-            $aData['created_date'] = date('Y-m-d H:i:s',time());
-            $aData['modified_by'] = CoreController::$oSession->oUser->getID();
-            $aData['modified_date'] = date('Y-m-d H:i:s',time());
-
-            # Insert Position
-            $this->oTableGateway->insert($aData);
-
-            # Return ID
-            return $this->oTableGateway->lastInsertValue;
-        }
-
-        # Check if Position Entity already exists
-        try {
-            $this->getSingle($id);
-        } catch (\RuntimeException $e) {
-            throw new \RuntimeException(sprintf(
-                'Cannot update job with identifier %d; does not exist',
-                $id
-            ));
-        }
-
-        # Update Metadata
-        $aData['modified_by'] = CoreController::$oSession->oUser->getID();
-        $aData['modified_date'] = date('Y-m-d H:i:s',time());
-
-        # Update Position
-        $this->oTableGateway->update($aData, ['Position_ID' => $id]);
-
-        return $id;
+        return $this->saveSingleEntity($oPosition,'Position_ID',$aDefaultData);
     }
 
     /**

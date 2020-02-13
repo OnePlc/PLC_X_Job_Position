@@ -2,10 +2,10 @@
 /**
  * Module.php - Module Class
  *
- * Module Class File for Job-Position Module
+ * Module Class File for Job Position Plugin
  *
  * @category Config
- * @package Job
+ * @package Job\Position
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -25,14 +25,13 @@ use Laminas\Db\TableGateway\TableGateway;
 use OnePlace\Job\Position\Controller\PositionController;
 use OnePlace\Job\Position\Model\PositionTable;
 
-
 class Module {
     /**
      * Module Version
      *
      * @since 1.0.0
      */
-    const VERSION = '1.0.1';
+    const VERSION = '1.0.2';
 
     /**
      * Load module config file
@@ -58,14 +57,13 @@ class Module {
         //CoreEntityController::addHook('job-edit-after-save',(object)['sFunction'=>'attachPositionToJob','oItem'=>new PositionController($oDbAdapter,$tableGateway,$container)]);
     }
 
-
     /**
      * Load Models
      */
     public function getServiceConfig() : array {
         return [
             'factories' => [
-                # Position Module - Base Model
+                # Position Plugin - Base Model
                 Model\PositionTable::class => function($container) {
                     $tableGateway = $container->get(Model\PositionTableGateway::class);
                     return new Model\PositionTable($tableGateway,$container);
@@ -78,14 +76,14 @@ class Module {
                 },
             ],
         ];
-    }
+    } # getServiceConfig()
+
     /**
      * Load Controllers
      */
     public function getControllerConfig() : array {
         return [
             'factories' => [
-                # Plugin Example Controller
                 Controller\PositionController::class => function($container) {
                     $oDbAdapter = $container->get(AdapterInterface::class);
                     $tableGateway = $container->get(PositionTable::class);
@@ -96,7 +94,16 @@ class Module {
                         $container
                     );
                 },
+                # Installer
+                Controller\InstallController::class => function($container) {
+                    $oDbAdapter = $container->get(AdapterInterface::class);
+                    return new Controller\InstallController(
+                        $oDbAdapter,
+                        $container->get(Model\PositionTable::class),
+                        $container
+                    );
+                },
             ],
         ];
-    }
+    } # getControllerConfig()
 }

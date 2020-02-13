@@ -84,12 +84,9 @@ INSERT INTO `permission` (`permission_key`, `module`, `label`, `nav_label`, `nav
 
 
 --
--- todo: add select before and check if tag exists
---
---
 -- job_position Table Custom Tags
 --
-INSERT INTO `core_tag` (`Tag_ID`, `tag_key`, `tag_label`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
+INSERT IGNORE INTO `core_tag` (`Tag_ID`, `tag_key`, `tag_label`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
 (NULL, 'variant', 'Variant', '1', '0000-00-00 00:00:00', '1', '0000-00-00 00:00:00'),
 (NULL, 'ref', 'Ref', '1', '0000-00-00 00:00:00', '1', '0000-00-00 00:00:00');
 
