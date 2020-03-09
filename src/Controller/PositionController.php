@@ -130,7 +130,7 @@ class PositionController extends CoreEntityController {
             # must be named aPartialExtraData
             'aPartialExtraData' => [
                 # must be name of your partial
-                'job-position'=> [
+                'job_position'=> [
                     'oPositionsDB'=>$aPositions,
                     'oForm'=>$oForm,
                     'aFormFields'=>$aFields,

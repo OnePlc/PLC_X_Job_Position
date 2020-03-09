@@ -3,7 +3,6 @@
 --
 CREATE TABLE `job_position` (
   `Position_ID` int(11) NOT NULL,
-   `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `job_idfs` int(11) NOT NULL DEFAULT '0',
   `article_idfs` int(11) NOT NULL DEFAULT '0',
   `variant_idfs` int(11) NOT NULL DEFAULT '0',
@@ -48,7 +47,7 @@ INSERT INTO `core_form` (`form_key`, `label`, `entity_class`, `entity_tbl_class`
 -- Tabs
 --
 INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `counter`, `sort_id`, `filter_check`, `filter_value`) VALUES
-('job-position', 'job-single', 'Position', 'all positions', 'fas fa-cogs', '', '0', '', '');
+('job-position', 'job-single', 'Position', 'all positions', 'fas fa-list', '', '0', '', '');
 
 
 
@@ -73,22 +72,5 @@ INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `
 --
 INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_list`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES
 (NULL, 'partial', 'Position', 'job-position', 'job-position', 'job-single', 'col-md-12', '', '', 0, 1, 0, '', '', '');
-
-
---
--- permissions
---
-INSERT INTO `permission` (`permission_key`, `module`, `label`, `nav_label`, `nav_href`, `show_in_menu`) VALUES
-('add', 'add-OnePlace\\Job\\Position\\Controller\\VariantController', 'Add Variant', '', '', 0),
-('add', 'add-OnePlace\\Job\\Position\\Controller\\RefController', 'Add Ref', '', '', 0);
-
-
---
--- job_position Table Custom Tags
---
-INSERT IGNORE INTO `core_tag` (`Tag_ID`, `tag_key`, `tag_label`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
-(NULL, 'variant', 'Variant', '1', '0000-00-00 00:00:00', '1', '0000-00-00 00:00:00'),
-(NULL, 'ref', 'Ref', '1', '0000-00-00 00:00:00', '1', '0000-00-00 00:00:00');
-
 
 COMMIT;

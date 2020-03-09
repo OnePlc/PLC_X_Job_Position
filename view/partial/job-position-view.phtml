@@ -24,4 +24,10 @@ if(array_key_exists('job_position',$this->aPartialData)) {
         </ul>
         <?php
     }
+} else { ?>
+    <div class="alert alert-danger px-2 py-2">
+        <?= $this->translate('Could not load job positions') ?>
+    </div>
+    <?php
 }
+

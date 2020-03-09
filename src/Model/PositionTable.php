@@ -61,7 +61,7 @@ class PositionTable extends CoreEntityTable {
      */
     public function saveSingle(Position $oPosition) {
         $aDefaultData = [
-            'label' => $oPosition->label,
+            'job_idfs' => $oPosition->job_idfs,
         ];
 
         return $this->saveSingleEntity($oPosition,'Position_ID',$aDefaultData);

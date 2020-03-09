@@ -52,6 +52,7 @@ class Module {
         $tableGateway = $container->get(PositionTable::class);
 
         # Register Filter Plugin Hook
+        CoreEntityController::addHook('job-view-before',(object)['sFunction'=>'attachPositionForm','oItem'=>new PositionController($oDbAdapter,$tableGateway,$container)]);
         CoreEntityController::addHook('job-edit-before',(object)['sFunction'=>'attachPositionForm','oItem'=>new PositionController($oDbAdapter,$tableGateway,$container)]);
         //CoreEntityController::addHook('job-add-after-save',(object)['sFunction'=>'attachPositionToJob','oItem'=>new PositionController($oDbAdapter,$tableGateway,$container)]);
         //CoreEntityController::addHook('job-edit-after-save',(object)['sFunction'=>'attachPositionToJob','oItem'=>new PositionController($oDbAdapter,$tableGateway,$container)]);

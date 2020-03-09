@@ -42,7 +42,6 @@ class Position extends CoreEntityModel {
      */
     public function exchangeArray(array $aData) {
         $this->id = !empty($aData['Position_ID']) ? $aData['Position_ID'] : 0;
-        $this->label = !empty($aData['label']) ? $aData['label'] : '';
 
         $this->updateDynamicFields($aData);
     }
