@@ -1,27 +1,92 @@
 <?php
 # Only show partial if data is set
+use Application\Controller\CoreController;
+
 if(array_key_exists('job_position',$this->aPartialData)) {
     # add address form fields
-    $aPositions = $this->aPartialData['job_position']['oPositionsDB'];
-    $aFields = $this->aPartialData['job_position']['aFormFields'];
+    $aPositions = $this->aPartialData['job_position']['aPositions'];
+    $aFields = $this->aPartialData['job_position']['aFieldsByTab'];
+    $fSubTotal = $this->aPartialData['job_position']['fSubTotal'];
 
-    if(count($aPositions) == 0) { ?>
-        <div class="alert alert-info px-2 py-2">
-            <?=$this->translate('No Positions yet')?>
-        </div>
-    <?php } else { ?>
+    if(count($aPositions) > 0) {
+        ?>
         <ul class="list-group">
-            <?php
-            foreach($aPositions as $oPos) { ?>
+            <li class="list-group-item">
+                <div class="row">
+                    <?= $this->partial('partial/viewformfields', ['bOnlyLabels'=>true,'sFormName' => 'jobposition-single', 'sTab' => 'jobposition-base', 'aFormFieldsByTab' => $aFields]); ?>
+                </div>
+            </li>
+            <?php foreach($aPositions as $oPos) {
+                ?>
                 <li class="list-group-item">
                     <div class="row">
-                        <?= $this->partial('partial/viewformfields', ['sFormName' => 'jobposition-single', 'sTab' => 'position-base', 'oItem' => $oPos, 'aFormFieldsByTab' => $aFields]); ?>
+                        <?php foreach(array_keys($aFields) as $sTab) {
+                            $aFieldsByTab = $aFields[$sTab];
+                            foreach($aFieldsByTab as $oField) {
+                                if(property_exists($oPos,$oField->fieldkey)) {
+                                    $sFieldKey = $oField->fieldkey;
+                                    ?>
+                                    <div class="<?=$oField->class?>">
+                                        <?php
+                                        if(is_object($oPos->$sFieldKey)) {
+                                            if(method_exists($oPos->$sFieldKey,'getLabel')) {
+                                                echo $oPos->$sFieldKey->getLabel();
+                                            }
+                                        } else {
+                                            switch($oField->type) {
+                                                case 'currency':
+                                                    if(CoreController::$aGlobalSettings['app-currency-sign-position'] == 'before') {
+                                                        echo CoreController::$aGlobalSettings['app-currency-sign'] . ' ';
+                                                    }
+                                                    echo number_format($oPos->$sFieldKey,2,CoreController::$aGlobalSettings['app-currency-decpoint'],CoreController::$aGlobalSettings['app-currency-thousandsep']);
+                                                    if(CoreController::$aGlobalSettings['app-currency-sign-position'] == 'after') {
+                                                        echo ' ' . CoreController::$aGlobalSettings['app-currency-sign'];
+                                                    }
+                                                    break;
+                                                default:
+                                                    echo $oPos->$sFieldKey;
+                                                    break;
+                                            }
+
+                                        }
+                                        ?>
+                                    </div>
+                                    <?php
+                                }
+                            }
+                        } ?>
                     </div>
                 </li>
-                <?php
-            }
-            ?>
+            <?php } ?>
         </ul>
+
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-4">
+                                Sub-Total
+                            </div>
+                            <div class="col-md-8 text-right">
+                                <?php
+                                if(CoreController::$aGlobalSettings['app-currency-sign-position'] == 'before') {
+                                    echo CoreController::$aGlobalSettings['app-currency-sign'] . ' ';
+                                }
+                                echo number_format($fSubTotal,2,CoreController::$aGlobalSettings['app-currency-decpoint'],CoreController::$aGlobalSettings['app-currency-thousandsep']);
+                                if(CoreController::$aGlobalSettings['app-currency-sign-position'] == 'after') {
+                                    echo ' ' . CoreController::$aGlobalSettings['app-currency-sign'];
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <?php
     }
 } else { ?>
@@ -30,4 +95,3 @@ if(array_key_exists('job_position',$this->aPartialData)) {
     </div>
     <?php
 }
-

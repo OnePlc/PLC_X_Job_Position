@@ -52,6 +52,10 @@ class PositionTable extends CoreEntityTable {
         return $this->getSingleEntity($id,$sKey);
     }
 
+    public function fetchAll($bPaginated = false,$aWhere = [],$sSort = 'Position_ID ASC') {
+        return parent::fetchAll($bPaginated,$aWhere,$sSort);
+    }
+
     /**
      * Save Position Entity
      *
