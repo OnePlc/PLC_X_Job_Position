@@ -2,7 +2,7 @@
     "name": "oneplace/oneplace-job-position",
     "description": "onePlace Job Filter",
     "type": "oneplace-plugin",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
