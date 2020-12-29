@@ -62,7 +62,7 @@ INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `
 (NULL, 'select', 'Variant', 'variant_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '/tag/api/list/jobposition-single/type', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Job\\Position\\Controller\\VariantController'),
 (NULL, 'select', 'Ref', 'ref_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '/tag/api/list/jobposition-single/type', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Job\\Position\\Controller\\RefController'),
 (NULL, 'text', 'Type', 'type', 'jobposition-base', 'jobposition-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
-(NULL, 'currency', 'Amount', 'amount', 'jobposition-base', 'jobposition-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
+(NULL, 'number', 'Amount', 'amount', 'jobposition-base', 'jobposition-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
 (NULL, 'currency', 'Price', 'price', 'jobposition-base', 'jobposition-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
 (NULL, 'currency', 'Discount', 'discount', 'jobposition-base', 'jobposition-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
 (NULL, 'text', 'Discount Type', 'discount_type', 'jobposition-base', 'jobposition-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
