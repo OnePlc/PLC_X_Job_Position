@@ -58,7 +58,7 @@ INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `cou
 INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_list`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES
 (NULL, 'text', 'Name', 'label', 'jobposition-base', 'job-single', 'col-md-3', '/job/view/##ID##', '', 0, 1, 0, '', '', ''),
 (NULL, 'hidden', 'Job', 'job_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '', 0, 1, 0, '', '',''),
-(NULL, 'select', 'Article', 'article_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '/article/view/##ID##', '/article/api/list/0', 0, 1, 0, 'entitytag-single', 'OnePlace\\Article\\Model\\ArticleTable','add-OnePlace\\Article\\Controller\\ArticleController'),
+(NULL, 'select', 'Article', 'article_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '/article/view/##ID##', '/article/api/list/0', 0, 1, 0, 'article-single', 'OnePlace\\Article\\Model\\ArticleTable','add-OnePlace\\Article\\Controller\\ArticleController'),
 (NULL, 'select', 'Variant', 'variant_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '/tag/api/list/jobposition-single/type', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Job\\Position\\Controller\\VariantController'),
 (NULL, 'select', 'Ref', 'ref_idfs', 'jobposition-base', 'jobposition-single', 'col-md-3', '', '/tag/api/list/jobposition-single/type', 0, 1, 0, 'entitytag-single', 'OnePlace\\Tag\\Model\\EntityTagTable', 'add-OnePlace\\Job\\Position\\Controller\\RefController'),
 (NULL, 'text', 'Type', 'type', 'jobposition-base', 'jobposition-single', 'col-md-1', '', '', 0, 1, 0, '', '', ''),
